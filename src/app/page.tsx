@@ -19,7 +19,7 @@ export default function Home() {
     {
       id: 1,
       title: "Creamy Chicken Alfredo",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/chicken-alfredo/400/300.jpg",
       cookTime: "30 mins",
       difficulty: "Easy",
       rating: 4.8,
@@ -30,7 +30,7 @@ export default function Home() {
     {
       id: 2,
       title: "Vegetarian Buddha Bowl",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/buddha-bowl/400/300.jpg",
       cookTime: "25 mins",
       difficulty: "Medium",
       rating: 4.6,
@@ -41,7 +41,7 @@ export default function Home() {
     {
       id: 3,
       title: "Classic Beef Tacos",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/beef-tacos/400/300.jpg",
       cookTime: "20 mins",
       difficulty: "Easy",
       rating: 4.9,
@@ -52,7 +52,7 @@ export default function Home() {
     {
       id: 4,
       title: "Paneer Butter Masala",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/paneer-masala/400/300.jpg",
       cookTime: "35 mins",
       difficulty: "Medium",
       rating: 4.7,
@@ -63,7 +63,7 @@ export default function Home() {
     {
       id: 5,
       title: "Keto Avocado Salad",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/avocado-salad/400/300.jpg",
       cookTime: "15 mins",
       difficulty: "Easy",
       rating: 4.5,
@@ -75,7 +75,7 @@ export default function Home() {
     {
       id: 6,
       title: "Grilled Salmon",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/grilled-salmon/400/300.jpg",
       cookTime: "25 mins",
       difficulty: "Medium",
       rating: 4.8,
@@ -87,7 +87,7 @@ export default function Home() {
     {
       id: 7,
       title: "Mushroom Risotto",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/mushroom-risotto/400/300.jpg",
       cookTime: "40 mins",
       difficulty: "Medium",
       rating: 4.4,
@@ -98,7 +98,7 @@ export default function Home() {
     {
       id: 8,
       title: "BBQ Chicken Wings",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/bbq-wings/400/300.jpg",
       cookTime: "45 mins",
       difficulty: "Medium",
       rating: 4.7,
@@ -109,7 +109,7 @@ export default function Home() {
     {
       id: 9,
       title: "Mediterranean Quinoa Bowl",
-      image: "/api/placeholder/300/200",
+      image: "https://picsum.photos/seed/quinoa-bowl/400/300.jpg",
       cookTime: "20 mins",
       difficulty: "Easy",
       rating: 4.6,
@@ -209,9 +209,14 @@ export default function Home() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {vegRecipes.map((recipe) => (
                 <div key={recipe.id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-green-200 hover:border-green-400 relative">
-                  <div className="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    <span className="text-white font-semibold text-lg relative z-10">Recipe Image</span>
+                  <div className="h-48 relative overflow-hidden">
+                    <Image 
+                      src={recipe.image} 
+                      alt={recipe.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="bg-white bg-opacity-90 rounded-full p-2 shadow-lg">
                         <span className="text-green-600 text-lg">❤️</span>
@@ -267,9 +272,14 @@ export default function Home() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {nonVegRecipes.map((recipe) => (
                 <div key={recipe.id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-red-200 hover:border-red-400 relative">
-                  <div className="h-48 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    <span className="text-white font-semibold text-lg relative z-10">Recipe Image</span>
+                  <div className="h-48 relative overflow-hidden">
+                    <Image 
+                      src={recipe.image} 
+                      alt={recipe.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="bg-white bg-opacity-90 rounded-full p-2 shadow-lg">
                         <span className="text-red-600 text-lg">❤️</span>
@@ -325,9 +335,14 @@ export default function Home() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {dietRecipes.map((recipe) => (
                 <div key={recipe.id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-purple-200 hover:border-purple-400 relative">
-                  <div className="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    <span className="text-white font-semibold text-lg relative z-10">Recipe Image</span>
+                  <div className="h-48 relative overflow-hidden">
+                    <Image 
+                      src={recipe.image} 
+                      alt={recipe.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="bg-white bg-opacity-90 rounded-full p-2 shadow-lg">
                         <span className="text-purple-600 text-lg">❤️</span>
@@ -375,7 +390,7 @@ export default function Home() {
       <section className="bg-orange-500 dark:bg-orange-600 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white mb-12 text-center">
-            Why Choose CookMate?
+            FAQ
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -405,6 +420,79 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            {/* About Section */}
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-orange-400">CookMate</h3>
+              <p className="text-gray-300 mb-4">Your ultimate cooking companion for discovering recipes, planning meals, and creating shopping lists.</p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
+                  <span className="text-xl">📱</span>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
+                  <span className="text-xl">📘</span>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
+                  <span className="text-xl">📸</span>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
+                  <span className="text-xl">🐦</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-orange-400">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Home</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Search Recipes</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Favorites</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Shopping List</a></li>
+              </ul>
+            </div>
+
+            {/* Categories */}
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-orange-400">Categories</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Vegetarian</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Non-Vegetarian</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Diet Special</a></li>
+                <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Quick Meals</a></li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-orange-400">Contact Us</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center">
+                  <span className="mr-2">📧</span>
+                  support@cookmate.com
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">📞</span>
+                  +1 (555) 123-4567
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">📍</span>
+                  123 Kitchen Street, Food City
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Footer */}
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p className="text-gray-400">&copy; 2024 CookMate. All rights reserved. Made with ❤️ for food lovers.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
