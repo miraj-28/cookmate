@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { FiHome, FiSearch, FiHeart, FiUser, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiSearch, FiHeart, FiUser, FiMenu, FiX, FiShoppingCart, FiCalendar } from 'react-icons/fi';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -18,12 +18,14 @@ export default function Navbar() {
     { href: '/', label: 'Home', icon: FiHome },
     { href: '/search', label: 'Search Recipes', icon: FiSearch },
     { href: '/favorites', label: 'Favorites', icon: FiHeart },
+    { href: '/meal-planner', label: 'Meal Planner', icon: FiCalendar },
+    { href: '/shopping-list', label: 'Shopping List', icon: FiShoppingCart },
   ];
 
   return (
-    <nav className="bg-orange-500 shadow-xl sticky top-0 z-50">
+    <nav className="bg-orange-500 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
@@ -47,8 +49,8 @@ export default function Navbar() {
                   href={item.href}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-yellow-100 bg-opacity-30 text-yellow-900 shadow-lg'
-                      : 'text-yellow-100 text-opacity-90 hover:text-yellow-900 hover:bg-yellow-100 hover:bg-opacity-30'
+                      ? 'bg-white/20 text-white shadow-lg ring-2 ring-white/30'
+                      : 'text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -58,7 +60,7 @@ export default function Navbar() {
             })}
             <Link
               href="/profile"
-              className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-yellow-100 text-opacity-90 hover:text-yellow-900 hover:bg-yellow-100 hover:bg-opacity-30 transition-all duration-200"
+              className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10 transition-all duration-200"
             >
               <FiUser className="w-4 h-4" />
               <span>Profile</span>
@@ -69,7 +71,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-yellow-100 text-opacity-90 hover:text-yellow-900 hover:bg-yellow-100 hover:bg-opacity-30 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-100 focus:ring-opacity-50 transition-all duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/30 transition-all duration-200"
             >
               {isMenuOpen ? (
                 <FiX className="block h-6 w-6" />
@@ -83,7 +85,7 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white bg-opacity-10 backdrop-blur-sm border-t border-white border-opacity-20">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/10 backdrop-blur-sm border-t border-white/20">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -94,8 +96,8 @@ export default function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
                       isActive
-                        ? 'bg-yellow-100 bg-opacity-30 text-yellow-900 shadow-lg'
-                        : 'text-yellow-100 text-opacity-90 hover:text-yellow-900 hover:bg-yellow-100 hover:bg-opacity-30'
+                        ? 'bg-white/20 text-white shadow-lg ring-2 ring-white/30'
+                        : 'text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -106,7 +108,7 @@ export default function Navbar() {
               <Link
                 href="/profile"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-yellow-100 text-opacity-90 hover:text-yellow-900 hover:bg-yellow-100 hover:bg-opacity-30 transition-all duration-200"
+                className="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10 transition-all duration-200"
               >
                 <FiUser className="w-5 h-5" />
                 <span>Profile</span>

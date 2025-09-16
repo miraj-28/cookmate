@@ -135,7 +135,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background Video */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         {/* Background Video */}
         <video 
           ref={videoRef}
@@ -159,41 +159,117 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
         
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-6xl md:text-7xl font-extrabold mb-6 text-cream drop-shadow-2xl transform transition-all duration-500 hover:scale-105">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center py-6 sm:py-8">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold mb-4 sm:mb-6 text-white drop-shadow-lg transform transition-all duration-500 hover:scale-105">
             Welcome to <span className="text-orange-300">CookMate</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-cream opacity-95 drop-shadow-lg font-light leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 text-white opacity-90 drop-shadow-md font-normal leading-relaxed max-w-2xl sm:max-w-3xl mx-auto px-4">
             Discover amazing recipes, create shopping lists, and plan your meals effortlessly
           </p>
           
           {/* Search Bar */}
-          <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
-            <div className="flex rounded-full bg-white shadow-2xl overflow-hidden">
-              <input
-                type="text"
-                placeholder="Search recipes by ingredient, cuisine, or dish name..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-6 py-4 text-orange-800 text-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-              />
+          <div className="max-w-4xl mx-auto space-y-3 sm:space-y-4 px-4">
+            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 items-center">
+              <div className="flex-1 relative w-full">
+                <input
+                  type="text"
+                  placeholder="Search recipes by ingredient, cuisine, or dish name..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-800 text-base sm:text-lg rounded-xl bg-white/95 backdrop-blur-sm shadow-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-300"
+                />
+              </div>
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 px-8 py-4 text-white font-semibold transition-colors"
+                className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 px-6 sm:px-8 py-3 sm:py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap"
               >
                 🔍 Search
               </button>
+            </form>
+            
+            {/* Advanced Filters Button */}
+            <div className="flex justify-center">
+              <button 
+                className="flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-xl hover:bg-white/30 transition-all duration-300 shadow-lg"
+                onClick={() => console.log('Advanced filters clicked')}
+              >
+                <span>⚙️</span>
+                <span>Show Advanced Filters</span>
+              </button>
             </div>
-          </form>
+          </div>
         </div>
       </section>
 
-      {/* Featured Recipes - 30% White Background */}
-      <section className="py-16 bg-white">
+      {/* Search Tips Section */}
+      <section className="py-8 sm:py-12 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center mb-6">
+              <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mr-4">
+                <span className="text-orange-600 dark:text-orange-400 text-xl">💡</span>
+              </div>
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Search Tips</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div className="flex items-start space-x-3">
+                <span className="text-orange-500 text-lg mt-1">🔍</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Be Specific</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Search for specific ingredients like "chicken breast" or "basil"</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-orange-500 text-lg mt-1">🌍</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Try Cuisines</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Search by cuisine type like "Italian" or "Thai"</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-orange-500 text-lg mt-1">⏱️</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Quick Meals</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Add "quick" or "30 minutes" for fast recipes</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-orange-500 text-lg mt-1">🥗</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Dietary Needs</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Include "vegetarian", "keto", or "gluten-free"</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-orange-500 text-lg mt-1">🍳</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Cooking Method</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Try "grilled", "baked", or "stir-fry"</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-orange-500 text-lg mt-1">🎯</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Combine Terms</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Mix ingredients and cuisines for better results</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Recipes Section */}
+      <section className="py-12 sm:py-16 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-orange-600 mb-12 text-center">
-            Featured Recipes
-          </h2>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4">
+              Featured Recipes
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Discover our hand-picked selection of delicious recipes from around the world
+            </p>
+          </div>
           
           {/* Vegetarian Section */}
           <div className="mb-16">
@@ -201,14 +277,14 @@ export default function Home() {
               <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mr-4 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
                 <span className="text-white text-lg">🥬</span>
               </div>
-              <h3 className="text-3xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300">Vegetarian Delights</h3>
+              <h3 className="text-3xl font-semibold text-green-600 group-hover:text-green-700 transition-colors duration-300">Vegetarian Delights</h3>
               <div className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span className="text-green-500 text-xl">✨</span>
               </div>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {vegRecipes.map((recipe) => (
-                <div key={recipe.id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-green-200 hover:border-green-400 relative">
+                <div key={recipe.id} className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 hover:scale-105 border border-gray-200 dark:border-gray-700 hover:border-green-400 dark:hover:border-green-500 relative">
                   <div className="h-48 relative overflow-hidden">
                     <Image 
                       src={recipe.image} 
@@ -227,19 +303,19 @@ export default function Home() {
                     <div className="absolute -top-4 left-6 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                       Popular
                     </div>
-                    <h3 className="text-xl font-bold text-green-800 mb-3 group-hover:text-green-600 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
                       {recipe.title}
                     </h3>
-                    <div className="flex items-center justify-between text-sm text-green-600 mb-4">
+                    <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mb-4">
                       <span className="flex items-center gap-1">
                         <span className="text-lg">⏱️</span>
-                        <span className="font-medium">{recipe.cookTime}</span>
+                        <span className="font-normal">{recipe.cookTime}</span>
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="text-lg">📊</span>
-                        <span className="font-medium">{recipe.difficulty}</span>
+                        <span className="font-normal">{recipe.difficulty}</span>
                       </span>
-                      <span className="flex items-center gap-1 text-green-500 font-semibold">
+                      <span className="flex items-center gap-1 text-orange-500 font-semibold">
                         <span className="text-lg">⭐</span>
                         <span>{recipe.rating}</span>
                       </span>
@@ -264,14 +340,14 @@ export default function Home() {
               <div className="w-10 h-10 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center mr-4 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
                 <span className="text-white text-lg">🍖</span>
               </div>
-              <h3 className="text-3xl font-bold text-red-600 group-hover:text-red-700 transition-colors duration-300">Non-Vegetarian Specials</h3>
+              <h3 className="text-3xl font-semibold text-red-600 group-hover:text-red-700 transition-colors duration-300">Non-Vegetarian Specials</h3>
               <div className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span className="text-red-500 text-xl">✨</span>
               </div>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {nonVegRecipes.map((recipe) => (
-                <div key={recipe.id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-red-200 hover:border-red-400 relative">
+                <div key={recipe.id} className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 hover:scale-105 border border-gray-200 dark:border-gray-700 hover:border-red-400 dark:hover:border-red-500 relative">
                   <div className="h-48 relative overflow-hidden">
                     <Image 
                       src={recipe.image} 
@@ -290,19 +366,19 @@ export default function Home() {
                     <div className="absolute -top-4 left-6 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                       Popular
                     </div>
-                    <h3 className="text-xl font-bold text-red-800 mb-3 group-hover:text-red-600 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors duration-300">
                       {recipe.title}
                     </h3>
-                    <div className="flex items-center justify-between text-sm text-red-600 mb-4">
+                    <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mb-4">
                       <span className="flex items-center gap-1">
                         <span className="text-lg">⏱️</span>
-                        <span className="font-medium">{recipe.cookTime}</span>
+                        <span className="font-normal">{recipe.cookTime}</span>
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="text-lg">📊</span>
-                        <span className="font-medium">{recipe.difficulty}</span>
+                        <span className="font-normal">{recipe.difficulty}</span>
                       </span>
-                      <span className="flex items-center gap-1 text-red-500 font-semibold">
+                      <span className="flex items-center gap-1 text-orange-500 font-semibold">
                         <span className="text-lg">⭐</span>
                         <span>{recipe.rating}</span>
                       </span>
@@ -327,14 +403,14 @@ export default function Home() {
               <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center mr-4 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
                 <span className="text-white text-lg">🥗</span>
               </div>
-              <h3 className="text-3xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300">Diet Special</h3>
+              <h3 className="text-3xl font-semibold text-purple-600 group-hover:text-purple-700 transition-colors duration-300">Diet Special</h3>
               <div className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span className="text-purple-500 text-xl">✨</span>
               </div>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {dietRecipes.map((recipe) => (
-                <div key={recipe.id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-purple-200 hover:border-purple-400 relative">
+                <div key={recipe.id} className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 hover:scale-105 border border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-500 relative">
                   <div className="h-48 relative overflow-hidden">
                     <Image 
                       src={recipe.image} 
@@ -353,19 +429,19 @@ export default function Home() {
                     <div className="absolute -top-4 left-6 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                       Popular
                     </div>
-                    <h3 className="text-xl font-bold text-purple-800 mb-3 group-hover:text-purple-600 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                       {recipe.title}
                     </h3>
-                    <div className="flex items-center justify-between text-sm text-purple-600 mb-4">
+                    <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mb-4">
                       <span className="flex items-center gap-1">
                         <span className="text-lg">⏱️</span>
-                        <span className="font-medium">{recipe.cookTime}</span>
+                        <span className="font-normal">{recipe.cookTime}</span>
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="text-lg">📊</span>
-                        <span className="font-medium">{recipe.difficulty}</span>
+                        <span className="font-normal">{recipe.difficulty}</span>
                       </span>
-                      <span className="flex items-center gap-1 text-purple-500 font-semibold">
+                      <span className="flex items-center gap-1 text-orange-500 font-semibold">
                         <span className="text-lg">⭐</span>
                         <span>{recipe.rating}</span>
                       </span>
@@ -386,49 +462,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section - 60% Orange Background */}
-      <section className="bg-orange-500 dark:bg-orange-600 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">
-            FAQ
-          </h2>
+      {/* Features Section */}
+      <section className="bg-orange-500 py-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-semibold text-white mb-4">
+              Why Choose CookMate?
+            </h2>
+            <p className="text-lg text-orange-100 max-w-2xl mx-auto">
+              Everything you need to make cooking easier and more enjoyable
+            </p>
+          </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center bg-white rounded-lg p-6 shadow-lg">
-              <div className="text-4xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-orange-600 mb-2">Smart Search</h3>
-              <p className="text-orange-500">Find recipes by ingredients, cuisine, or dietary preferences</p>
+            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
+              <div className="text-5xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold text-orange-600 mb-3">Smart Search</h3>
+              <p className="text-gray-600 font-normal">Find recipes by ingredients, cuisine, or dietary preferences</p>
             </div>
             
-            <div className="text-center bg-white rounded-lg p-6 shadow-lg">
-              <div className="text-4xl mb-4">❤️</div>
-              <h3 className="text-xl font-semibold text-orange-600 mb-2">Save Favorites</h3>
-              <p className="text-orange-500">Bookmark your favorite recipes for quick access</p>
+            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
+              <div className="text-5xl mb-4">❤️</div>
+              <h3 className="text-xl font-semibold text-orange-600 mb-3">Save Favorites</h3>
+              <p className="text-gray-600 font-normal">Bookmark your favorite recipes for quick access</p>
             </div>
             
-            <div className="text-center bg-white rounded-lg p-6 shadow-lg">
-              <div className="text-4xl mb-4">🛒</div>
-              <h3 className="text-xl font-semibold text-orange-600 mb-2">Shopping Lists</h3>
-              <p className="text-orange-500">Auto-generate grocery lists from your selected recipes</p>
+            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
+              <div className="text-5xl mb-4">🛒</div>
+              <h3 className="text-xl font-semibold text-orange-600 mb-3">Shopping Lists</h3>
+              <p className="text-gray-600 font-normal">Auto-generate grocery lists from your selected recipes</p>
             </div>
             
-            <div className="text-center bg-white rounded-lg p-6 shadow-lg">
-              <div className="text-4xl mb-4">📱</div>
-              <h3 className="text-xl font-semibold text-orange-600 mb-2">Mobile Friendly</h3>
-              <p className="text-orange-500">Cook with ease on any device, anywhere</p>
+            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
+              <div className="text-5xl mb-4">📱</div>
+              <h3 className="text-xl font-semibold text-orange-600 mb-3">Mobile Friendly</h3>
+              <p className="text-gray-600 font-normal">Cook with ease on any device, anywhere</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 dark:bg-black text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             {/* About Section */}
             <div>
-              <h3 className="text-xl font-bold mb-4 text-orange-400">CookMate</h3>
-              <p className="text-gray-300 mb-4">Your ultimate cooking companion for discovering recipes, planning meals, and creating shopping lists.</p>
+              <h3 className="text-xl font-semibold mb-4 text-orange-400">CookMate</h3>
+              <p className="text-gray-300 font-normal mb-4">Your ultimate cooking companion for discovering recipes, planning meals, and creating shopping lists.</p>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
                   <span className="text-xl">📱</span>
@@ -447,7 +528,7 @@ export default function Home() {
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-bold mb-4 text-orange-400">Quick Links</h3>
+              <h3 className="text-xl font-semibold mb-4 text-orange-400">Quick Links</h3>
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Home</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Search Recipes</a></li>
@@ -458,7 +539,7 @@ export default function Home() {
 
             {/* Categories */}
             <div>
-              <h3 className="text-xl font-bold mb-4 text-orange-400">Categories</h3>
+              <h3 className="text-xl font-semibold mb-4 text-orange-400">Categories</h3>
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Vegetarian</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">Non-Vegetarian</a></li>
@@ -469,7 +550,7 @@ export default function Home() {
 
             {/* Contact */}
             <div>
-              <h3 className="text-xl font-bold mb-4 text-orange-400">Contact Us</h3>
+              <h3 className="text-xl font-semibold mb-4 text-orange-400">Contact Us</h3>
               <ul className="space-y-2 text-gray-300">
                 <li className="flex items-center">
                   <span className="mr-2">📧</span>

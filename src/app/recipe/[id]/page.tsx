@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { FiPlay } from 'react-icons/fi';
 
 interface Recipe {
   id: number;
@@ -232,6 +234,13 @@ export default function RecipeDetailPage() {
                 >
                   🛒 Add to List
                 </button>
+                <Link
+                  href={`/recipe/${recipeId}/cooking`}
+                  className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-colors font-semibold flex items-center space-x-2"
+                >
+                  <FiPlay className="w-4 h-4" />
+                  <span>Start Cooking</span>
+                </Link>
               </div>
             </div>
           </div>

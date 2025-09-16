@@ -14,6 +14,15 @@ interface ShoppingItem {
 export default function ShoppingListPage() {
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddItemModal, setShowAddItemModal] = useState(false);
+  const [customItem, setCustomItem] = useState({
+    name: '',
+    amount: 1,
+    unit: 'item'
+  });
+  const [errors, setErrors] = useState({
+    name: ''
+  });
 
   useEffect(() => {
     const loadShoppingList = () => {
@@ -63,18 +72,42 @@ export default function ShoppingListPage() {
   };
 
   const addCustomItem = () => {
-    const itemName = prompt('Enter item name:');
-    if (itemName && itemName.trim()) {
-      const newItem: ShoppingItem = {
-        id: Date.now(),
-        name: itemName.trim(),
-        amount: 1,
-        unit: 'item',
-        recipeTitle: 'Custom',
-        checked: false
-      };
-      updateShoppingList([...shoppingList, newItem]);
+    setShowAddItemModal(true);
+    setCustomItem({ name: '', amount: 1, unit: 'item' });
+    setErrors({ name: '' });
+  };
+
+  const handleAddItem = () => {
+    // Validation
+    const newErrors = { name: '' };
+    let hasError = false;
+
+    if (!customItem.name.trim()) {
+      newErrors.name = 'Item name is required';
+      hasError = true;
     }
+
+    if (hasError) {
+      setErrors(newErrors);
+      return;
+    }
+
+    const newItem: ShoppingItem = {
+      id: Date.now(),
+      name: customItem.name.trim(),
+      amount: customItem.amount,
+      unit: customItem.unit,
+      recipeTitle: 'Custom',
+      checked: false
+    };
+    updateShoppingList([...shoppingList, newItem]);
+    setShowAddItemModal(false);
+  };
+
+  const handleCancelAdd = () => {
+    setShowAddItemModal(false);
+    setCustomItem({ name: '', amount: 1, unit: 'item' });
+    setErrors({ name: '' });
   };
 
   const groupedItems = shoppingList.reduce((groups, item) => {
@@ -241,6 +274,99 @@ export default function ShoppingListPage() {
           </ul>
         </div>
       </div>
+
+      {/* Add Custom Item Modal */}
+      {showAddItemModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Add Custom Item</h3>
+                <button
+                  onClick={handleCancelAdd}
+                  className="text-gray-400 hover:text-gray-600 text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Item Name *
+                  </label>
+                  <input
+                    type="text"
+                    value={customItem.name}
+                    onChange={(e) => setCustomItem({ ...customItem, name: e.target.value })}
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-black ${
+                      errors.name ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="Enter item name"
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                  )}
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Amount
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={customItem.amount}
+                      onChange={(e) => setCustomItem({ ...customItem, amount: parseInt(e.target.value) || 1 })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-black"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Unit
+                    </label>
+                    <select
+                      value={customItem.unit}
+                      onChange={(e) => setCustomItem({ ...customItem, unit: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-black"
+                    >
+                      <option value="item">item(s)</option>
+                      <option value="kg">kg</option>
+                      <option value="g">g</option>
+                      <option value="lb">lb</option>
+                      <option value="oz">oz</option>
+                      <option value="L">L</option>
+                      <option value="mL">mL</option>
+                      <option value="cup">cup(s)</option>
+                      <option value="tbsp">tbsp</option>
+                      <option value="tsp">tsp</option>
+                      <option value="package">package(s)</option>
+                      <option value="box">box(es)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex gap-3 mt-6">
+                <button
+                  onClick={handleCancelAdd}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleAddItem}
+                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-medium transition-colors"
+                >
+                  Add Item
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
