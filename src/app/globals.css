@@ -3,6 +3,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Purple Theme Variables */
+  --gradient-top: #A39BDE;
+  --gradient-bottom: #5A4A8B;
+  --button-color: #8F84C8;
+  --heading-text: #FFFFFF;
+  --button-text: #E3E0F8;
   /* Theme variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);

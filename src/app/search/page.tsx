@@ -204,8 +204,8 @@ export default function SearchPage() {
   return (
     <div className="min-h-screen py-8 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Search Header - 30% White */}
-        <div className="mb-8 bg-orange-500 rounded-lg p-8 text-center">
+        {/* Search Header - 30% Purple */}
+        <div className="mb-8 bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-8 text-center">
           <h1 className="text-3xl font-bold text-white mb-6">
             Search Recipes
           </h1>
@@ -217,12 +217,12 @@ export default function SearchPage() {
                 placeholder="Search recipes by ingredient, cuisine, or dish name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-3 text-orange-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                className="flex-1 px-4 py-3 text-[#8F84C8] focus:outline-none focus:ring-2 focus:ring-[#8F84C8]"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-orange-500 hover:bg-orange-600 disabled:bg-orange-400 px-6 py-3 text-white font-semibold transition-colors"
+                className="bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] disabled:opacity-60 px-6 py-3 text-white font-semibold transition-colors"
               >
                 {loading ? '🔄' : '🔍'} Search
               </button>
@@ -232,7 +232,7 @@ export default function SearchPage() {
           {/* Filters Toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="inline-flex items-center space-x-2 bg-white text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors"
+            className="inline-flex items-center space-x-2 bg-white text-[#8F84C8] px-4 py-2 rounded-lg hover:bg-purple-50 transition-colors"
           >
             <FiFilter className="w-4 h-4" />
             <span>{showFilters ? 'Hide' : 'Show'} Advanced Filters</span>
@@ -242,27 +242,27 @@ export default function SearchPage() {
           {(cookingTime !== 'any' || difficulty !== 'any' || dietaryRestrictions.length > 0 || cuisine !== 'any' || sortBy !== 'relevance') && (
             <div className="mt-4 flex flex-wrap gap-2 justify-center">
               {cookingTime !== 'any' && (
-                <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">
+                <span className="bg-purple-100 text-[#5A4A8B] px-3 py-1 rounded-full text-sm">
                   ⏱️ ≤ {cookingTime} min
                 </span>
               )}
               {difficulty !== 'any' && (
-                <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">
+                <span className="bg-purple-100 text-[#5A4A8B] px-3 py-1 rounded-full text-sm">
                   📊 {difficulty}
                 </span>
               )}
               {dietaryRestrictions.map(restriction => (
-                <span key={restriction} className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">
+                <span key={restriction} className="bg-purple-100 text-[#5A4A8B] px-3 py-1 rounded-full text-sm">
                   🥗 {restriction}
                 </span>
               ))}
               {cuisine !== 'any' && (
-                <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">
+                <span className="bg-purple-100 text-[#5A4A8B] px-3 py-1 rounded-full text-sm">
                   🌍 {cuisine}
                 </span>
               )}
               {sortBy !== 'relevance' && (
-                <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">
+                <span className="bg-purple-100 text-[#5A4A8B] px-3 py-1 rounded-full text-sm">
                   📈 Sort by {sortBy}
                 </span>
               )}
@@ -278,8 +278,8 @@ export default function SearchPage() {
 
         {/* Advanced Filters Panel */}
         {showFilters && (
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-8 border border-orange-200">
-            <h3 className="text-lg font-semibold text-orange-700 mb-4">Advanced Filters</h3>
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-8 border border-purple-200">
+            <h3 className="text-lg font-semibold text-[#5A4A8B] mb-4">Advanced Filters</h3>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Cooking Time Filter */}
@@ -290,7 +290,7 @@ export default function SearchPage() {
                 <select
                   value={cookingTime}
                   onChange={(e) => setCookingTime(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8F84C8] focus:border-[#8F84C8]"
                 >
                   <option value="any">Any time</option>
                   <option value="15">≤ 15 minutes</option>
@@ -308,7 +308,7 @@ export default function SearchPage() {
                 <select
                   value={difficulty}
                   onChange={(e) => setDifficulty(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8F84C8] focus:border-[#8F84C8]"
                 >
                   <option value="any">Any difficulty</option>
                   <option value="easy">Easy</option>
@@ -325,7 +325,7 @@ export default function SearchPage() {
                 <select
                   value={cuisine}
                   onChange={(e) => setCuisine(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8F84C8] focus:border-[#8F84C8]"
                 >
                   <option value="any">Any cuisine</option>
                   <option value="Italian">Italian</option>
@@ -344,7 +344,7 @@ export default function SearchPage() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8F84C8] focus:border-[#8F84C8]"
                 >
                   <option value="relevance">Relevance</option>
                   <option value="time">Cooking Time</option>
@@ -366,8 +366,8 @@ export default function SearchPage() {
                     onClick={() => toggleDietaryRestriction(restriction)}
                     className={`px-4 py-2 rounded-lg border transition-colors ${
                       dietaryRestrictions.includes(restriction)
-                        ? 'bg-orange-500 text-white border-orange-500'
-                        : 'bg-white text-gray-700 border-gray-300 hover:bg-orange-50'
+                        ? 'bg-[#8F84C8] text-white border-[#8F84C8]'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-purple-50'
                     }`}
                   >
                     {restriction}
@@ -382,13 +382,13 @@ export default function SearchPage() {
         {loading && (
           <div className="text-center py-12">
             <div className="text-4xl mb-4">🔄</div>
-            <p className="text-orange-600">Searching for delicious recipes...</p>
+            <p className="text-[#8F84C8]">Searching for delicious recipes...</p>
           </div>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="bg-orange-50 border border-orange-300 text-orange-700 px-4 py-3 rounded mb-6">
+          <div className="bg-purple-50 border border-purple-300 text-[#5A4A8B] px-4 py-3 rounded mb-6">
             {error}
           </div>
         )}
@@ -396,42 +396,42 @@ export default function SearchPage() {
         {/* Results */}
         {!loading && recipes.length > 0 && (
           <div>
-            <h2 className="text-2xl font-semibold text-orange-600 mb-6">
+            <h2 className="text-2xl font-semibold text-[#5A4A8B] mb-6">
               Found {recipes.length} recipe{recipes.length !== 1 ? 's' : ''} for "{searchQuery}"
             </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {recipes.map((recipe) => (
-                <div key={recipe.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all hover:scale-105 border border-orange-200">
-                  <div className="h-48 bg-orange-500 flex items-center justify-center">
+                <div key={recipe.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all hover:scale-105 border border-purple-200">
+                  <div className="h-48 bg-gradient-to-br from-[#A39BDE] to-[#5A4A8B] flex items-center justify-center">
                     <span className="text-white font-semibold">Recipe Image</span>
                   </div>
                   
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold text-orange-700 mb-2">
+                    <h3 className="text-xl font-semibold text-[#5A4A8B] mb-2">
                       {recipe.title}
                     </h3>
                     
-                    <p className="text-orange-600 text-sm mb-4 line-clamp-2">
+                    <p className="text-[#8F84C8] text-sm mb-4 line-clamp-2">
                       {recipe.summary}
                     </p>
                     
-                    <div className="flex items-center justify-between text-sm text-orange-600 mb-4">
+                    <div className="flex items-center justify-between text-sm text-[#8F84C8] mb-4">
                       <span>⏱️ {recipe.readyInMinutes} mins</span>
                       <span>👥 {recipe.servings} servings</span>
-                      <span className="text-orange-500">⭐ {(recipe.spoonacularScore / 20).toFixed(1)}</span>
+                      <span className="text-yellow-500">⭐ {(recipe.spoonacularScore / 20).toFixed(1)}</span>
                     </div>
                     
                     <div className="flex gap-2">
                       <button 
                         onClick={() => window.location.href = `/recipe/${recipe.id}`}
-                        className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-lg transition-colors font-semibold"
+                        className="flex-1 bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] text-white py-2 px-4 rounded-lg transition-colors font-semibold"
                       >
                         View Recipe
                       </button>
                       <button
                         onClick={() => addToFavorites(recipe)}
-                        className="bg-orange-100 hover:bg-orange-200 text-orange-500 py-2 px-4 rounded-lg transition-colors"
+                        className="bg-purple-100 hover:bg-purple-200 text-[#5A4A8B] py-2 px-4 rounded-lg transition-colors"
                       >
                         ❤️
                       </button>
@@ -447,10 +447,10 @@ export default function SearchPage() {
         {!loading && searchQuery && recipes.length === 0 && !error && (
           <div className="text-center py-12">
             <div className="text-4xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-orange-600 mb-2">
+            <h3 className="text-xl font-semibold text-[#5A4A8B] mb-2">
               No recipes found
             </h3>
-            <p className="text-orange-500">
+            <p className="text-[#8F84C8]">
               Try searching with different keywords or ingredients
             </p>
           </div>
@@ -458,7 +458,7 @@ export default function SearchPage() {
 
         {/* Search Tips */}
         {!searchQuery && (
-          <div className="bg-orange-500 rounded-lg p-6">
+          <div className="bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-6">
           <h3 className="text-lg font-semibold text-white mb-3">
             Search Tips
           </h3>

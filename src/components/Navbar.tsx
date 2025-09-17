@@ -23,16 +23,16 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-orange-500 shadow-md sticky top-0 z-50">
+    <nav className="bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
+              <div className="w-8 h-8 bg-gradient-to-br from-[#8F84C8] to-[#5A4A8B] rounded-lg flex items-center justify-center">
+                <span className="text-[#FFFFFF] font-bold text-lg">C</span>
               </div>
-              <span className="text-xl font-bold text-yellow-100 drop-shadow-lg">
+              <span className="text-xl font-bold text-[#FFFFFF] drop-shadow-lg">
                 CookMate
               </span>
             </Link>
@@ -49,8 +49,8 @@ export default function Navbar() {
                   href={item.href}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-white/20 text-white shadow-lg ring-2 ring-white/30'
-                      : 'text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10'
+                      ? 'bg-white/20 text-[#FFFFFF] shadow-lg ring-2 ring-white/30'
+                      : 'text-[#E3E0F8] text-opacity-90 hover:text-[#FFFFFF] hover:bg-white/10'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -60,7 +60,7 @@ export default function Navbar() {
             })}
             <Link
               href="/profile"
-              className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10 transition-all duration-200"
+              className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-[#E3E0F8] text-opacity-90 hover:text-[#FFFFFF] hover:bg-white/10 transition-all duration-200"
             >
               <FiUser className="w-4 h-4" />
               <span>Profile</span>
@@ -71,7 +71,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/30 transition-all duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-[#E3E0F8] text-opacity-90 hover:text-[#FFFFFF] hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/30 transition-all duration-200"
             >
               {isMenuOpen ? (
                 <FiX className="block h-6 w-6" />
@@ -96,8 +96,8 @@ export default function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
                       isActive
-                        ? 'bg-white/20 text-white shadow-lg ring-2 ring-white/30'
-                        : 'text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10'
+                        ? 'bg-white/20 text-[#FFFFFF] shadow-lg ring-2 ring-white/30'
+                        : 'text-[#E3E0F8] text-opacity-90 hover:text-[#FFFFFF] hover:bg-white/10'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -108,7 +108,7 @@ export default function Navbar() {
               <Link
                 href="/profile"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-yellow-100 text-opacity-90 hover:text-white hover:bg-white/10 transition-all duration-200"
+                className="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-[#E3E0F8] text-opacity-90 hover:text-[#FFFFFF] hover:bg-white/10 transition-all duration-200"
               >
                 <FiUser className="w-5 h-5" />
                 <span>Profile</span>

@@ -53,7 +53,7 @@ export default function ForgotPassword() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 text-center">
-          <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">
+          <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B]">
             CookMate
           </h1>
           <div className="bg-green-50 border border-green-200 rounded-md p-4">
@@ -82,7 +82,7 @@ export default function ForgotPassword() {
           <div className="text-sm">
             <Link
               href="/login"
-              className="font-medium text-orange-600 hover:text-orange-500"
+              className="font-medium text-[#8F84C8] hover:text-[#5A4A8B]"
             >
               Back to login
             </Link>
@@ -137,7 +137,7 @@ export default function ForgotPassword() {
                 onBlur={() => validateEmail(email)}
                 className={`appearance-none rounded-md relative block w-full px-3 py-3 border ${
                   validationError ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm`}
+                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#8F84C8] focus:border-[#8F84C8] sm:text-sm`}
                 placeholder="Email address"
               />
               {validationError && (
@@ -150,7 +150,7 @@ export default function ForgotPassword() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8F84C8] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Sending reset link...' : 'Send reset link'}
             </button>
@@ -160,7 +160,7 @@ export default function ForgotPassword() {
         <div className="text-center text-sm">
           <Link
             href="/login"
-            className="font-medium text-orange-600 hover:text-orange-500"
+            className="font-medium text-[#8F84C8] hover:text-[#5A4A8B]"
           >
             Back to login
           </Link>

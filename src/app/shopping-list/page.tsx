@@ -136,7 +136,7 @@ export default function ShoppingListPage() {
   return (
     <div className="min-h-screen py-8 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-orange-500 rounded-lg p-8 mb-8">
+        <div className="bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-8 mb-8">
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-white">
@@ -188,7 +188,7 @@ export default function ShoppingListPage() {
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => window.location.href = '/search'}
-                className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                className="bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] text-white py-3 px-6 rounded-lg font-semibold transition-colors"
               >
                 Find Recipes
               </button>
@@ -213,7 +213,7 @@ export default function ShoppingListPage() {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                    className="bg-[#8F84C8] h-2 rounded-full transition-all duration-300"
                     style={{ width: `${(completedCount / totalCount) * 100}%` }}
                   ></div>
                 </div>
@@ -223,7 +223,7 @@ export default function ShoppingListPage() {
             {/* Shopping List Items */}
             {Object.entries(groupedItems).map(([recipeTitle, items]) => (
               <div key={recipeTitle} className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="p-4 border-b border-gray-200 bg-orange-500">
+                <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B]">
                   <h3 className="text-lg font-semibold text-white">
                     {recipeTitle}
                   </h3>
@@ -262,7 +262,7 @@ export default function ShoppingListPage() {
         )}
 
         {/* Tips */}
-        <div className="mt-8 bg-orange-500 rounded-lg p-6">
+        <div className="mt-8 bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-6">
           <h3 className="text-lg font-semibold text-white mb-3">
             Shopping Tips
           </h3>
@@ -299,7 +299,7 @@ export default function ShoppingListPage() {
                     type="text"
                     value={customItem.name}
                     onChange={(e) => setCustomItem({ ...customItem, name: e.target.value })}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-black ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8F84C8] text-black ${
                       errors.name ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="Enter item name"
@@ -319,7 +319,7 @@ export default function ShoppingListPage() {
                       min="1"
                       value={customItem.amount}
                       onChange={(e) => setCustomItem({ ...customItem, amount: parseInt(e.target.value) || 1 })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-black"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8F84C8] text-black"
                     />
                   </div>
                   
@@ -330,7 +330,7 @@ export default function ShoppingListPage() {
                     <select
                       value={customItem.unit}
                       onChange={(e) => setCustomItem({ ...customItem, unit: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-black"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8F84C8] text-black"
                     >
                       <option value="item">item(s)</option>
                       <option value="kg">kg</option>
@@ -358,7 +358,7 @@ export default function ShoppingListPage() {
                 </button>
                 <button
                   onClick={handleAddItem}
-                  className="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-medium transition-colors"
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] text-white rounded-lg hover:from-[#A39BDE] hover:to-[#5A4A8B] font-medium transition-colors"
                 >
                   Add Item
                 </button>

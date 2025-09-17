@@ -89,7 +89,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">
+          <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B]">
             CookMate
           </h1>
           <h2 className="mt-6 text-2xl font-bold text-gray-900">
@@ -123,7 +123,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 className={`appearance-none rounded-md relative block w-full px-3 py-3 border ${
                   validationErrors.email ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm`}
+                } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#8F84C8] focus:border-[#8F84C8] sm:text-sm`}
                 placeholder="Email address"
               />
               {validationErrors.email && (
@@ -145,7 +145,7 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   className={`appearance-none rounded-md relative block w-full px-3 py-3 border ${
                     validationErrors.password ? 'border-red-300' : 'border-gray-300'
-                  } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm`}
+                  } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#8F84C8] focus:border-[#8F84C8] sm:text-sm`}
                   placeholder="Password"
                 />
                 <button
@@ -172,7 +172,7 @@ export default function Login() {
                 type="checkbox"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
-                className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                className="h-4 w-4 text-[#8F84C8] focus:ring-[#8F84C8] border-gray-300 rounded"
               />
               <label
                 htmlFor="remember-me"
@@ -185,7 +185,7 @@ export default function Login() {
             <div className="text-sm">
               <a
                 href="#"
-                className="font-medium text-orange-600 hover:text-orange-500"
+                className="font-medium text-[#8F84C8] hover:text-[#5A4A8B]"
               >
                 Forgot your password?
               </a>
@@ -196,7 +196,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8F84C8] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
@@ -238,7 +238,7 @@ export default function Login() {
           <span className="text-gray-600">Don't have an account? </span>
           <Link
             href="/signup"
-            className="font-medium text-orange-600 hover:text-orange-500"
+            className="font-medium text-[#8F84C8] hover:text-[#5A4A8B]"
           >
             Sign up
           </Link>

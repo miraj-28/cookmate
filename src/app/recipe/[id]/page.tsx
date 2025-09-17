@@ -187,7 +187,7 @@ export default function RecipeDetailPage() {
           <p className="text-gray-600 dark:text-gray-400 mb-4">The recipe you're looking for doesn't exist.</p>
           <button 
             onClick={() => window.location.href = '/'}
-            className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-lg"
+            className="bg-[#8F84C8] hover:bg-[#A39BDE] text-white py-2 px-4 rounded-lg"
           >
             Back to Home
           </button>
@@ -199,23 +199,23 @@ export default function RecipeDetailPage() {
   return (
     <div className="min-h-screen py-8 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Recipe Header - 60% Orange */}
-        <div className="bg-orange-500 rounded-lg shadow-lg overflow-hidden mb-8">
-          <div className="h-64 bg-orange-600 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">Recipe Image</span>
+        {/* Recipe Header - 60% Purple */}
+        <div className="bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg shadow-lg overflow-hidden mb-8">
+          <div className="h-64 bg-gradient-to-br from-[#8F84C8] to-[#5A4A8B] flex items-center justify-center">
+            <span className="text-[#FFFFFF] font-bold text-lg">Recipe Image</span>
           </div>
           
           <div className="p-6">
-            <h1 className="text-3xl font-bold text-white mb-4">
+            <h1 className="text-3xl font-bold text-[#FFFFFF] mb-4">
               {recipe.title}
             </h1>
             
-            <p className="text-white opacity-90 mb-6">
+            <p className="text-[#E3E0F8] opacity-90 mb-6">
               {recipe.summary}
             </p>
             
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-6 text-sm text-white">
+              <div className="flex items-center space-x-6 text-sm text-[#E3E0F8]">
                 <span>⏱️ {recipe.readyInMinutes} minutes</span>
                 <span>👥 {recipe.servings} servings</span>
                 <span className="text-yellow-300">⭐ {(recipe.spoonacularScore / 20).toFixed(1)}</span>
@@ -224,7 +224,7 @@ export default function RecipeDetailPage() {
               <div className="flex gap-3">
                 <button
                   onClick={addToFavorites}
-                  className="bg-white text-red-500 hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
+                  className="bg-white text-[#8F84C8] hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
                 >
                   ❤️ Save
                 </button>
@@ -256,7 +256,7 @@ export default function RecipeDetailPage() {
                   onClick={() => setActiveTab(tab)}
                   className={`py-4 px-6 text-sm font-medium capitalize ${
                     activeTab === tab
-                      ? 'border-b-2 border-orange-500 text-orange-500 bg-orange-50'
+                      ? 'border-b-2 border-[#8F84C8] text-[#8F84C8] bg-purple-50'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
@@ -275,7 +275,7 @@ export default function RecipeDetailPage() {
                 <ul className="space-y-3">
                   {recipe.ingredients.map((ingredient) => (
                     <li key={ingredient.id} className="flex items-center">
-                      <span className="w-4 h-4 bg-orange-500 rounded-full mr-3 flex-shrink-0"></span>
+                      <span className="w-4 h-4 bg-[#8F84C8] rounded-full mr-3 flex-shrink-0"></span>
                       <span className="text-gray-700">
                         {ingredient.amount} {ingredient.unit} {ingredient.name}
                       </span>
@@ -293,7 +293,7 @@ export default function RecipeDetailPage() {
                 <ol className="space-y-4">
                   {recipe.instructions.map((instruction) => (
                     <li key={instruction.number} className="flex">
-                      <span className="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold mr-4 flex-shrink-0">
+                      <span className="bg-[#8F84C8] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold mr-4 flex-shrink-0">
                         {instruction.number}
                       </span>
                       <p className="text-gray-700 pt-1">
@@ -311,7 +311,7 @@ export default function RecipeDetailPage() {
                   Nutrition Information
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="bg-orange-500 p-4 rounded-lg text-center">
+                  <div className="bg-[#8F84C8] p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-white mb-1">
                       {recipe.nutrition.calories}
                     </div>
