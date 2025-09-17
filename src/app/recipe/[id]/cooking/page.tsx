@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiPlay, FiPause, FiChevronLeft, FiChevronRight, FiClock, FiCheck, FiX, FiHome } from 'react-icons/fi';
+import { spoonacularAPI } from '@/lib/spoonacular';
 
 interface Recipe {
   id: number;
@@ -36,6 +37,7 @@ interface Timer {
   remaining: number;
   isRunning: boolean;
   isCompleted: boolean;
+  id: string;
 }
 
 export default function CookingModePage() {
@@ -46,112 +48,58 @@ export default function CookingModePage() {
   const [loading, setLoading] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
-  const [timers, setTimers] = useState<Timer[]>([]);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
-
-  // Mock recipe data (same as parent page)
-  const mockRecipeData: { [key: string]: Recipe } = {
-    '1': {
-      id: 1,
-      title: "Creamy Chicken Alfredo Pasta",
-      image: "/api/placeholder/600/400",
-      readyInMinutes: 30,
-      servings: 4,
-      summary: "Rich and creamy pasta dish with tender chicken and parmesan cheese.",
-      ingredients: [
-        { id: 1, name: "Fettuccine pasta", amount: 12, unit: "oz" },
-        { id: 2, name: "Chicken breast", amount: 1, unit: "lb" },
-        { id: 3, name: "Heavy cream", amount: 1, unit: "cup" },
-        { id: 4, name: "Parmesan cheese", amount: 1, unit: "cup" },
-        { id: 5, name: "Butter", amount: 4, unit: "tbsp" },
-        { id: 6, name: "Garlic cloves", amount: 3, unit: "cloves" },
-        { id: 7, name: "Salt", amount: 1, unit: "tsp" },
-        { id: 8, name: "Black pepper", amount: 0.5, unit: "tsp" }
-      ],
-      instructions: [
-        { number: 1, step: "Cook fettuccine pasta according to package directions. Drain and set aside." },
-        { number: 2, step: "Season chicken breast with salt and pepper. Cut into bite-sized pieces." },
-        { number: 3, step: "In a large skillet, melt 2 tbsp butter over medium-high heat. Cook chicken until golden and cooked through, about 6-8 minutes." },
-        { number: 4, step: "Remove chicken from skillet and set aside. In the same skillet, melt remaining butter." },
-        { number: 5, step: "Add minced garlic and cook for 1 minute until fragrant." },
-        { number: 6, step: "Pour in heavy cream and bring to a gentle simmer. Cook for 2-3 minutes." },
-        { number: 7, step: "Add grated Parmesan cheese and whisk until melted and smooth." },
-        { number: 8, step: "Return chicken to the skillet and add cooked pasta. Toss everything together." },
-        { number: 9, step: "Season with additional salt and pepper to taste. Serve immediately." }
-      ],
-      nutrition: { calories: 650, protein: "35g", carbs: "45g", fat: "35g" },
-      spoonacularScore: 85
-    },
-    '2': {
-      id: 2,
-      title: "Vegetarian Buddha Bowl",
-      image: "/api/placeholder/600/400",
-      readyInMinutes: 25,
-      servings: 2,
-      summary: "Healthy bowl packed with quinoa, roasted vegetables, and tahini dressing.",
-      ingredients: [
-        { id: 1, name: "Quinoa", amount: 1, unit: "cup" },
-        { id: 2, name: "Sweet potato", amount: 1, unit: "large" },
-        { id: 3, name: "Broccoli", amount: 2, unit: "cups" },
-        { id: 4, name: "Chickpeas", amount: 1, unit: "can" },
-        { id: 5, name: "Avocado", amount: 1, unit: "medium" },
-        { id: 6, name: "Tahini", amount: 3, unit: "tbsp" },
-        { id: 7, name: "Lemon juice", amount: 2, unit: "tbsp" },
-        { id: 8, name: "Olive oil", amount: 2, unit: "tbsp" }
-      ],
-      instructions: [
-        { number: 1, step: "Preheat oven to 400°F (200°C)." },
-        { number: 2, step: "Cook quinoa according to package directions." },
-        { number: 3, step: "Cube sweet potato and toss with olive oil, salt, and pepper. Roast for 20 minutes." },
-        { number: 4, step: "Steam broccoli until tender, about 5 minutes." },
-        { number: 5, step: "Drain and rinse chickpeas." },
-        { number: 6, step: "Make tahini dressing by whisking tahini, lemon juice, and 2-3 tbsp water." },
-        { number: 7, step: "Slice avocado." },
-        { number: 8, step: "Assemble bowls with quinoa, roasted sweet potato, broccoli, chickpeas, and avocado." },
-        { number: 9, step: "Drizzle with tahini dressing and serve." }
-      ],
-      nutrition: { calories: 520, protein: "18g", carbs: "65g", fat: "22g" },
-      spoonacularScore: 92
-    }
-  };
 
   useEffect(() => {
     const fetchRecipe = async () => {
       setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 500));
       
-      const recipeData = mockRecipeData[recipeId];
-      setRecipe(recipeData || null);
+      try {
+        // First try to fetch from Spoonacular API
+        const apiResponse = await spoonacularAPI.getRecipeInformation(parseInt(recipeId));
+        
+        if (apiResponse) {
+          // Transform API response to match our Recipe interface
+          const transformedRecipe: Recipe = {
+            id: apiResponse.id,
+            title: apiResponse.title,
+            image: apiResponse.image,
+            readyInMinutes: apiResponse.readyInMinutes,
+            servings: apiResponse.servings,
+            summary: apiResponse.summary || '',
+            ingredients: apiResponse.extendedIngredients?.map((ing: any) => ({
+              id: ing.id,
+              name: ing.name,
+              amount: ing.amount,
+              unit: ing.unit
+            })) || [],
+            instructions: apiResponse.analyzedInstructions?.[0]?.steps?.map((step: any) => ({
+              number: step.number,
+              step: step.step
+            })) || [{ number: 1, step: apiResponse.instructions || 'No detailed instructions available.' }],
+            nutrition: {
+              calories: apiResponse.nutrition?.nutrients?.find((n: any) => n.name === 'Calories')?.amount || 0,
+              protein: apiResponse.nutrition?.nutrients?.find((n: any) => n.name === 'Protein')?.amount + 'g' || '0g',
+              carbs: apiResponse.nutrition?.nutrients?.find((n: any) => n.name === 'Carbohydrates')?.amount + 'g' || '0g',
+              fat: apiResponse.nutrition?.nutrients?.find((n: any) => n.name === 'Fat')?.amount + 'g' || '0g'
+            },
+            spoonacularScore: apiResponse.spoonacularScore
+          };
+          
+          setRecipe(transformedRecipe);
+        } else {
+          // If API fails, show error message
+          setRecipe(null);
+        }
+      } catch (error) {
+        console.error('API fetch failed:', error);
+        setRecipe(null);
+      }
+      
       setLoading(false);
     };
 
     fetchRecipe();
   }, [recipeId]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimers(prevTimers => 
-        prevTimers.map(timer => {
-          if (timer.isRunning && timer.remaining > 0) {
-            const newRemaining = timer.remaining - 1;
-            if (newRemaining === 0) {
-              // Timer completed
-              if ('speechSynthesis' in window && voiceEnabled) {
-                const utterance = new SpeechSynthesisUtterance('Timer completed!');
-                utterance.rate = 0.8;
-                speechSynthesis.speak(utterance);
-              }
-              return { ...timer, remaining: 0, isRunning: false, isCompleted: true };
-            }
-            return { ...timer, remaining: newRemaining };
-          }
-          return timer;
-        })
-      );
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [voiceEnabled]);
 
   const startTimer = (duration: number) => {
     const newTimer: Timer = {
@@ -159,19 +107,16 @@ export default function CookingModePage() {
       duration,
       remaining: duration * 60, // Convert to seconds
       isRunning: true,
-      isCompleted: false
+      isCompleted: false,
+      id: crypto.randomUUID(), // Generate a unique id
     };
-    setTimers(prev => [...prev, newTimer]);
+    // Add new timer to state
+    // ...
   };
 
-  const toggleTimer = (step: number) => {
-    setTimers(prevTimers =>
-      prevTimers.map(timer =>
-        timer.step === step
-          ? { ...timer, isRunning: !timer.isRunning }
-          : timer
-      )
-    );
+  const toggleTimer = (id: string) => {
+    // Toggle timer state
+    // ...
   };
 
   const markStepComplete = () => {
@@ -193,7 +138,7 @@ export default function CookingModePage() {
   };
 
   const speakStep = (step: string) => {
-    if ('speechSynthesis' in window && voiceEnabled) {
+    if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(step);
       utterance.rate = 0.8;
       speechSynthesis.speak(utterance);
@@ -249,9 +194,9 @@ export default function CookingModePage() {
         </div>
 
         <button
-          onClick={() => setVoiceEnabled(!voiceEnabled)}
-          className={`p-2 rounded-lg ${voiceEnabled ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600'}`}
-          title={voiceEnabled ? 'Voice enabled' : 'Voice disabled'}
+          onClick={() => speakStep(currentInstruction.step)}
+          className="p-2 text-gray-600 hover:text-gray-900"
+          title="Read step aloud"
         >
           🔊
         </button>
@@ -280,13 +225,6 @@ export default function CookingModePage() {
                   </div>
                   <h2 className="text-xl font-semibold text-gray-900">Step {currentStep + 1}</h2>
                 </div>
-                <button
-                  onClick={() => speakStep(currentInstruction.step)}
-                  className="p-2 text-gray-600 hover:text-gray-900"
-                  title="Read step aloud"
-                >
-                  🔊
-                </button>
               </div>
               
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
@@ -351,34 +289,6 @@ export default function CookingModePage() {
 
         {/* Sidebar */}
         <div className="w-full lg:w-80 bg-white border-l p-6">
-          {/* Active Timers */}
-          {timers.length > 0 && (
-            <div className="mb-6">
-              <h3 className="font-semibold text-gray-900 mb-3">Active Timers</h3>
-              <div className="space-y-2">
-                {timers.map(timer => (
-                  <div key={timer.step} className="bg-gray-50 rounded-lg p-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-gray-700">Step {timer.step}</span>
-                      <button
-                        onClick={() => toggleTimer(timer.step)}
-                        className={`p-1 rounded ${timer.isRunning ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}
-                      >
-                        {timer.isRunning ? <FiPause className="w-3 h-3" /> : <FiPlay className="w-3 h-3" />}
-                      </button>
-                    </div>
-                    <div className={`text-lg font-mono ${timer.isCompleted ? 'text-green-600' : 'text-gray-900'}`}>
-                      {formatTime(timer.remaining)}
-                    </div>
-                    {timer.isCompleted && (
-                      <div className="text-xs text-green-600 mt-1">Completed!</div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* All Steps Overview */}
           <div>
             <h3 className="font-semibold text-gray-900 mb-3">All Steps</h3>

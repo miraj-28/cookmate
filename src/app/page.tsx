@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState('');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -125,13 +124,6 @@ export default function Home() {
   const nonVegRecipes = featuredRecipes.filter(recipe => recipe.category === "non-veg");
   const dietRecipes = featuredRecipes.filter(recipe => recipe.category === "diet");
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
-    }
-  };
-
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background Video */}
@@ -166,27 +158,6 @@ export default function Home() {
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 text-white opacity-90 drop-shadow-md font-normal leading-relaxed max-w-2xl sm:max-w-3xl mx-auto px-4">
             Discover amazing recipes, create shopping lists, and plan your meals effortlessly
           </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-4xl mx-auto space-y-3 sm:space-y-4 px-4">
-            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 items-center">
-              <div className="flex-1 relative w-full">
-                <input
-                  type="text"
-                  placeholder="Search recipes by ingredient, cuisine, or dish name..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-800 text-base sm:text-lg rounded-xl bg-white/95 backdrop-blur-sm shadow-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#8F84C8] focus:border-transparent transition-all duration-300"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full sm:w-auto bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] px-6 sm:px-8 py-3 sm:py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap"
-              >
-                🔍 Search
-              </button>
-            </form>
-          </div>
         </div>
       </section>
 
@@ -566,5 +537,3 @@ export default function Home() {
     </div>
   );
 }
-
-

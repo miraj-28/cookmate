@@ -1,32 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-// These are the default values that will be used during build time
-// They will be replaced by the actual environment variables at runtime
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-
-// Function to verify the client is properly initialized
-export function verifySupabase() {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn(
-      'Supabase environment variables not found. Using demo mode. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your .env.local file for full functionality.'
-    );
-    return false;
-  }
-  return true;
-}
-
-// This is a singleton client that can be used throughout the app
-export const supabase = verifySupabase() ? createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,
-    flowType: 'pkce',
-  },
-}) : null;
-
-// Mock data for when Supabase is not available
+// Mock recipes data for search functionality
 export const mockRecipes = [
   {
     id: 1,
@@ -68,3 +40,6 @@ export const mockRecipes = [
     category: "vegetarian"
   }
 ];
+
+// Export null for supabase since authentication is removed
+export const supabase = null;

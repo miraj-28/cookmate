@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "@/lib/database.types";
 import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
@@ -17,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CookMate - Your Cooking Companion",
-  description: "Discover, save, and organize recipes with CookMate. Find recipes by ingredients, create shopping lists, and plan your meals effortlessly.",
+  description: "Discover, save, and organize recipes with CookMate. Find recipes by ingredients, create WishLists, and plan your meals effortlessly.",
 };
 
 export default function RootLayout({

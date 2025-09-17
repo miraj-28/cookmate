@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import SectionWrapper from '@/components/SectionWrapper';
 
 interface ShoppingItem {
   id: number;
@@ -134,144 +135,146 @@ export default function ShoppingListPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-8 mb-8">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold text-white">
-                Shopping List
-              </h1>
-              {totalCount > 0 && (
-                <p className="text-white opacity-90 mt-2">
-                  {completedCount} of {totalCount} items completed
-                </p>
-              )}
-            </div>
-          
-            <div className="flex gap-2">
-              <button
-                onClick={addCustomItem}
-                className="bg-white text-blue-600 hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
-              >
-                Add Item
-              </button>
-              {shoppingList.some(item => item.checked) && (
-                <button
-                  onClick={clearCompleted}
-                  className="bg-white text-green-600 hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
-                >
-                  Clear Completed
-                </button>
-              )}
-              {totalCount > 0 && (
-                <button
-                  onClick={clearAll}
-                  className="bg-white text-red-600 hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
-                >
-                  Clear All
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {totalCount === 0 ? (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-6">🛒</div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-              Your shopping list is empty
-            </h2>
-            <p className="text-gray-600 mb-8">
-              Add ingredients from recipes or create custom items to get started!
-            </p>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={() => window.location.href = '/search'}
-                className="bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] text-white py-3 px-6 rounded-lg font-semibold transition-colors"
-              >
-                Find Recipes
-              </button>
-              <button
-                onClick={addCustomItem}
-                className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
-              >
-                Add Custom Item
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {/* Progress Bar */}
-            {totalCount > 0 && (
-              <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium text-gray-700">Progress</span>
-                  <span className="text-sm text-gray-600">
-                    {Math.round((completedCount / totalCount) * 100)}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-[#8F84C8] h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${(completedCount / totalCount) * 100}%` }}
-                  ></div>
-                </div>
+    <SectionWrapper>
+      <div className="min-h-screen py-0">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-8 mb-8">
+            <div className="flex justify-between items-center">
+              <div>
+                <h1 className="text-3xl font-bold text-white">
+                  Shopping List
+                </h1>
+                {totalCount > 0 && (
+                  <p className="text-white opacity-90 mt-2">
+                    {completedCount} of {totalCount} items completed
+                  </p>
+                )}
               </div>
-            )}
-
-            {/* Shopping List Items */}
-            {Object.entries(groupedItems).map(([recipeTitle, items]) => (
-              <div key={recipeTitle} className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B]">
-                  <h3 className="text-lg font-semibold text-white">
-                    {recipeTitle}
-                  </h3>
-                </div>
-                
-                <div className="p-4">
-                  <ul className="space-y-3">
-                    {items.map((item) => (
-                      <li key={item.id} className="flex items-center justify-between">
-                        <div className="flex items-center flex-1">
-                          <input
-                            type="checkbox"
-                            checked={item.checked}
-                            onChange={() => toggleItem(item.id)}
-                            className="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3"
-                          />
-                          <span className={`flex-1 ${item.checked ? 'line-through text-gray-400' : 'text-gray-900'}`}>
-                            {item.amount} {item.unit} {item.name}
-                          </span>
-                        </div>
-                        
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 ml-4"
-                          title="Remove item"
-                        >
-                          🗑️
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            
+              <div className="flex gap-2">
+                <button
+                  onClick={addCustomItem}
+                  className="bg-white text-blue-600 hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
+                >
+                  Add Item
+                </button>
+                {shoppingList.some(item => item.checked) && (
+                  <button
+                    onClick={clearCompleted}
+                    className="bg-white text-green-600 hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
+                  >
+                    Clear Completed
+                  </button>
+                )}
+                {totalCount > 0 && (
+                  <button
+                    onClick={clearAll}
+                    className="bg-white text-red-600 hover:bg-gray-100 py-2 px-4 rounded-lg transition-colors font-semibold"
+                  >
+                    Clear All
+                  </button>
+                )}
               </div>
-            ))}
+            </div>
           </div>
-        )}
 
-        {/* Tips */}
-        <div className="mt-8 bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-white mb-3">
-            Shopping Tips
-          </h3>
-          <ul className="text-white space-y-2">
-            <li>• Check off items as you shop to track your progress</li>
-            <li>• Items are grouped by recipe for easy organization</li>
-            <li>• Add custom items for non-recipe ingredients</li>
-            <li>• Clear completed items to keep your list clean</li>
-          </ul>
+          {totalCount === 0 ? (
+            <div className="text-center py-16">
+              <div className="text-6xl mb-6">🛒</div>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                Your shopping list is empty
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Add ingredients from recipes or create custom items to get started!
+              </p>
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => window.location.href = '/search'}
+                  className="bg-gradient-to-r from-[#8F84C8] to-[#5A4A8B] hover:from-[#A39BDE] hover:to-[#5A4A8B] text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                >
+                  Find Recipes
+                </button>
+                <button
+                  onClick={addCustomItem}
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                >
+                  Add Custom Item
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {/* Progress Bar */}
+              {totalCount > 0 && (
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-gray-700">Progress</span>
+                    <span className="text-sm text-gray-600">
+                      {Math.round((completedCount / totalCount) * 100)}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-[#8F84C8] h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${(completedCount / totalCount) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+              )}
+
+              {/* Shopping List Items */}
+              {Object.entries(groupedItems).map(([recipeTitle, items]) => (
+                <div key={recipeTitle} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                  <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-t-lg">
+                    <h3 className="text-lg font-semibold text-white">
+                      {recipeTitle}
+                    </h3>
+                  </div>
+                  
+                  <div className="p-4">
+                    <ul className="space-y-3">
+                      {items.map((item) => (
+                        <li key={item.id} className="flex items-center justify-between">
+                          <div className="flex items-center flex-1">
+                            <input
+                              type="checkbox"
+                              checked={item.checked}
+                              onChange={() => toggleItem(item.id)}
+                              className="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3"
+                            />
+                            <span className={`flex-1 ${item.checked ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                              {item.amount} {item.unit} {item.name}
+                            </span>
+                          </div>
+                          
+                          <button
+                            onClick={() => removeItem(item.id)}
+                            className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 ml-4"
+                            title="Remove item"
+                          >
+                            🗑️
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Tips */}
+          <div className="mt-8 bg-gradient-to-r from-[#A39BDE] to-[#5A4A8B] rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-white mb-3">
+              Shopping Tips
+            </h3>
+            <ul className="text-white space-y-2">
+              <li>• Check off items as you shop to track your progress</li>
+              <li>• Items are grouped by recipe for easy organization</li>
+              <li>• Add custom items for non-recipe ingredients</li>
+              <li>• Clear completed items to keep your list clean</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -367,6 +370,6 @@ export default function ShoppingListPage() {
           </div>
         </div>
       )}
-    </div>
+    </SectionWrapper>
   );
 }

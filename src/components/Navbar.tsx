@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { FiHome, FiSearch, FiHeart, FiUser, FiMenu, FiX, FiShoppingCart, FiCalendar } from 'react-icons/fi';
@@ -29,12 +30,15 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-[#8F84C8] to-[#5A4A8B] rounded-lg flex items-center justify-center">
-                <span className="text-[#FFFFFF] font-bold text-lg">C</span>
-              </div>
-              <span className="text-xl font-bold text-[#FFFFFF] drop-shadow-lg">
-                CookMate
-              </span>
+              <span className="text-xl font-bold text-[#FFFFFF] drop-shadow-lg">CookMate</span>
+              <Image
+                src="/logo.jpg"
+                alt="CookMate logo"
+                width={28}
+                height={28}
+                className="rounded-md"
+                priority
+              />
             </Link>
           </div>
 

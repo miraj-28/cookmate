@@ -29,23 +29,7 @@ export async function middleware(request: NextRequest) {
     // Get the current user
     const { data: { user } } = await supabase.auth.getUser();
     
-    // Define public routes that don't require authentication
-    const publicRoutes = ['/login', '/signup', '/forgot-password', '/auth/callback'];
-    const isPublicRoute = publicRoutes.some(route => 
-      request.nextUrl.pathname.startsWith(route)
-    );
-    
-    // If user is not signed in and the current route is not public, redirect to login
-    if (!user && !isPublicRoute) {
-      const redirectUrl = new URL('/login', request.url);
-      redirectUrl.searchParams.set('redirectedFrom', request.nextUrl.pathname);
-      return NextResponse.redirect(redirectUrl);
-    }
-    
-    // If user is signed in and tries to access login/signup, redirect to home
-    if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
+    // Authentication middleware removed - allowing public access to all routes
     
     return response;
   } catch (error) {
