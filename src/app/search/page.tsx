@@ -3,22 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { FiSearch, FiClock, FiUsers, FiStar, FiHeart, FiFilter } from 'react-icons/fi';
-import { spoonacularAPI, SpoonacularRecipe } from '@/lib/spoonacular';
+import { recipeService, UnifiedRecipe } from '@/lib/apiClients';
 import SectionWrapper from '@/components/SectionWrapper';
 
-interface Recipe {
-  id: number;
-  title: string;
-  image: string;
-  readyInMinutes: number;
-  servings: number;
-  summary: string;
-  spoonacularScore: number;
-  isVegetarian?: boolean;
-  isNonVegetarian?: boolean;
-  difficulty?: 'easy' | 'medium' | 'hard';
-  dietary?: string[];
-  cuisine?: string;
+interface Recipe extends UnifiedRecipe {
+  // Additional UI-specific properties can be added here if needed
 }
 
 export default function SearchPage() {
@@ -38,77 +27,44 @@ export default function SearchPage() {
   const [cuisine, setCuisine] = useState<string>('any');
   const [sortBy, setSortBy] = useState<string>('relevance');
 
-
   const searchRecipes = async (query: string) => {
     if (!query.trim()) return;
     
     console.log('Searching for:', query);
-    console.log('API Key available:', !!process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY);
-    console.log('API Key length:', process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY?.length);
     
     setLoading(true);
     setError(null);
     
     try {
-      let searchResults: Recipe[];
+      console.log('Calling unified recipe service...');
+      const response = await recipeService.searchRecipes(query, 'Indian');
       
-      try {
-        // Search recipes from Spoonacular API
-        console.log('Calling Spoonacular API...');
-        const response = await spoonacularAPI.searchRecipes({
-          query: query,
-          number: 10,
-          addRecipeInformation: true,
-          addRecipeNutrition: false
-        });
-        
-        console.log('Spoonacular API Response:', response);
-        console.log('Response results:', response.results);
-        console.log('Number of results:', response.results?.length);
-        
-        // Check if response is valid and has results
-        if (!response || !response.results || !Array.isArray(response.results)) {
-          console.log('Invalid API response structure, falling back to mock data');
-          throw new Error('Invalid API response structure');
-        }
-        
-        // Transform API recipes to match the Recipe interface
-        searchResults = response.results.map(recipe => {
-          const totalCookingTime = recipe.readyInMinutes;
-          const difficultyLevel: 'easy' | 'medium' | 'hard' = 
-            totalCookingTime < 30 ? 'easy' : 
-            totalCookingTime < 60 ? 'medium' : 'hard';
-
-          return {
-            id: recipe.id,
-            title: recipe.title,
-            image: recipe.image,
-            readyInMinutes: recipe.readyInMinutes,
-            servings: recipe.servings,
-            summary: recipe.summary || '',
-            spoonacularScore: recipe.spoonacularScore,
-            isVegetarian: recipe.vegetarian,
-            isNonVegetarian: !recipe.vegetarian,
-            difficulty: difficultyLevel,
-            dietary: recipe.diets || [],
-            cuisine: recipe.cuisines?.[0] || 'International'
-          } as Recipe;
-        });
-        
-        console.log('Transformed search results:', searchResults);
-      } catch (err) {
-        console.error('Search error:', err);
-        setError(err instanceof Error ? err.message : 'Failed to search recipes');
-        
-        // Don't use fallback mock data - only use API
-        searchResults = [];
+      console.log('Unified service response:', response);
+      console.log('Number of results:', response.results?.length);
+      
+      if (!response || !response.results || !Array.isArray(response.results)) {
+        console.log('Invalid response structure');
+        setRecipes([]);
+        setFilteredRecipes([]);
+        return;
       }
       
+      const searchResults: Recipe[] = response.results.map(recipe => ({
+        ...recipe,
+        difficulty: recipe.difficulty || 'medium',
+        dietary: recipe.dietary || [],
+        cuisine: recipe.cuisine || 'International'
+      }));
+      
+      console.log('Final search results:', searchResults);
       setRecipes(searchResults);
       setFilteredRecipes(searchResults);
+      
     } catch (err) {
       console.error('Search error:', err);
       setError(err instanceof Error ? err.message : 'Failed to search recipes');
+      setRecipes([]);
+      setFilteredRecipes([]);
     } finally {
       setLoading(false);
     }
@@ -117,18 +73,15 @@ export default function SearchPage() {
   const applyFilters = (recipesToFilter: Recipe[]) => {
     let filtered = [...recipesToFilter];
     
-    // Apply cooking time filter
     if (cookingTime !== 'any') {
       const maxTime = parseInt(cookingTime);
       filtered = filtered.filter(recipe => recipe.readyInMinutes <= maxTime);
     }
     
-    // Apply difficulty filter
     if (difficulty !== 'any') {
       filtered = filtered.filter(recipe => recipe.difficulty === difficulty);
     }
     
-    // Apply dietary restrictions filter
     if (dietaryRestrictions.length > 0) {
       filtered = filtered.filter(recipe => 
         dietaryRestrictions.some(restriction => 
@@ -139,12 +92,10 @@ export default function SearchPage() {
       );
     }
     
-    // Apply cuisine filter
     if (cuisine !== 'any') {
       filtered = filtered.filter(recipe => recipe.cuisine === cuisine);
     }
     
-    // Apply sorting
     switch (sortBy) {
       case 'time':
         filtered.sort((a, b) => a.readyInMinutes - b.readyInMinutes);
@@ -157,7 +108,6 @@ export default function SearchPage() {
         filtered.sort((a, b) => difficultyOrder[a.difficulty || 'medium'] - difficultyOrder[b.difficulty || 'medium']);
         break;
       default:
-        // Keep original order for relevance
         break;
     }
     

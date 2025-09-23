@@ -21,21 +21,28 @@ export function RecipeSidebar({ onRecipeSelect, selectedRecipe }: RecipeSidebarP
 
   const fetchRecipes = async () => {
     try {
-      if (!supabase) {
-        setRecipes(getSampleRecipes());
-        return;
-      }
-      
       const { data, error } = await supabase
         .from('recipes')
         .select('*')
         .order('title');
 
-      if (error) throw error;
-      setRecipes(data || []);
+      if (error) {
+        console.warn('Supabase error:', error);
+        // Fallback to sample recipes if there's any error
+        setRecipes(getSampleRecipes());
+        return;
+      }
+      
+      // If no data returned or empty array, use sample recipes
+      if (!data || data.length === 0) {
+        console.log('No recipes found in database, using sample recipes');
+        setRecipes(getSampleRecipes());
+      } else {
+        setRecipes(data);
+      }
     } catch (error) {
       console.error('Error fetching recipes:', error);
-      // Fallback sample recipes if Supabase is not configured
+      // Fallback sample recipes if Supabase is not configured or fails
       setRecipes(getSampleRecipes());
     } finally {
       setLoading(false);

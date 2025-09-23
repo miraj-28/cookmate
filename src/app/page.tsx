@@ -39,8 +39,8 @@ export default function Home() {
     },
     {
       id: 3,
-      title: "Classic Beef Tacos",
-      image: "https://picsum.photos/seed/beef-tacos/400/300.jpg",
+      title: "Chicken Tacos",
+      image: "https://picsum.photos/seed/chicken-tacos/400/300.jpg",
       cookTime: "20 mins",
       difficulty: "Easy",
       rating: 4.9,
@@ -434,29 +434,44 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
-              <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-[#5A4A8B] mb-3">Smart Search</h3>
-              <p className="text-gray-600 font-normal">Find recipes by ingredients, cuisine, or dietary preferences</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Smart Meal Planning */}
+            <div className="group relative bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-500">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-[#5A4A8B] mb-4 group-hover:text-blue-600 transition-colors duration-300">Smart Meal Planning</h3>
+                <p className="text-gray-600 leading-relaxed font-normal">Intelligent weekly meal planning that considers your schedule, nutritional goals, and family preferences to create balanced, delicious meal plans.</p>
+              </div>
             </div>
             
-            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
-              <div className="text-5xl mb-4">❤️</div>
-              <h3 className="text-xl font-semibold text-[#5A4A8B] mb-3">Save Favorites</h3>
-              <p className="text-gray-600 font-normal">Bookmark your favorite recipes for quick access</p>
+            {/* Smart Shopping Lists */}
+            <div className="group relative bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-500">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-[#5A4A8B] mb-4 group-hover:text-purple-600 transition-colors duration-300">Smart Shopping Lists</h3>
+                <p className="text-gray-600 leading-relaxed font-normal">Automatically generate organized shopping lists based on your meal plans, with smart categorization and pantry integration to avoid duplicates.</p>
+              </div>
             </div>
             
-            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
-              <div className="text-5xl mb-4">🛒</div>
-              <h3 className="text-xl font-semibold text-[#5A4A8B] mb-3">Shopping Lists</h3>
-              <p className="text-gray-600 font-normal">Auto-generate grocery lists from your selected recipes</p>
-            </div>
-            
-            <div className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-300">
-              <div className="text-5xl mb-4">📱</div>
-              <h3 className="text-xl font-semibold text-[#5A4A8B] mb-3">Mobile Friendly</h3>
-              <p className="text-gray-600 font-normal">Cook with ease on any device, anywhere</p>
+            {/* Nutritional Insights */}
+            <div className="group relative bg-white/95 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 transform hover:scale-105 transition-all duration-500">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-[#5A4A8B] mb-4 group-hover:text-orange-600 transition-colors duration-300">Nutritional Insights</h3>
+                <p className="text-gray-600 leading-relaxed font-normal">Comprehensive nutritional analysis for every recipe with calorie tracking, macro breakdowns, and dietary goal monitoring.</p>
+              </div>
             </div>
           </div>
         </div>

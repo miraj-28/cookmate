@@ -119,14 +119,55 @@ class SpoonacularAPI {
       }
     });
 
-    const response = await fetch(url.toString());
-    
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Spoonacular API Error (${response.status}): ${errorText}`);
-    }
+    console.log('Spoonacular API Request:', {
+      url: url.toString(),
+      endpoint,
+      params
+    });
 
-    return response.json();
+    try {
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Add timeout to prevent hanging requests
+        signal: AbortSignal.timeout(10000) // 10 second timeout
+      });
+      
+      console.log('Spoonacular API Response:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok
+      });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Spoonacular API Error Response:', errorText);
+        throw new Error(`Spoonacular API Error (${response.status}): ${errorText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error('Spoonacular API Fetch Error:', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        url: url.toString(),
+        endpoint,
+        params
+      });
+      
+      // Re-throw with more detailed information
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          throw new Error(`Spoonacular API request timed out after 10 seconds for endpoint: ${endpoint}`);
+        } else if (error.message === 'Failed to fetch') {
+          throw new Error(`Network error: Unable to connect to Spoonacular API. Please check your internet connection and the API endpoint: ${endpoint}`);
+        }
+        throw new Error(`Spoonacular API request failed: ${error.message}`);
+      }
+      
+      throw new Error('Unknown error occurred while fetching from Spoonacular API');
+    }
   }
 
   async searchRecipes(params: SearchParams): Promise<SearchResult> {

@@ -1,3 +1,49 @@
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+let supabase: any;
+
+if (supabaseUrl && supabaseAnonKey) {
+  // Create real Supabase client if environment variables are available
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+} else {
+  // Create a mock Supabase client for development without real configuration
+  console.warn('Supabase environment variables not found. Using mock client for development.');
+  supabase = {
+    auth: {
+      resetPasswordForEmail: async () => ({ error: null }),
+      signIn: async () => ({ error: 'Mock auth - not configured' }),
+      signUp: async () => ({ error: 'Mock auth - not configured' }),
+      signOut: async () => ({ error: null }),
+      getUser: async () => ({ data: { user: null }, error: null }),
+    },
+    from: (table: string) => ({
+      select: () => ({
+        order: () => ({
+          data: [],
+          error: null
+        })
+      }),
+      insert: () => ({
+        data: null,
+        error: 'Mock database - not configured'
+      }),
+      update: () => ({
+        data: null,
+        error: 'Mock database - not configured'
+      }),
+      delete: () => ({
+        data: null,
+        error: 'Mock database - not configured'
+      })
+    })
+  };
+}
+
+export { supabase };
+
 // Mock recipes data for search functionality
 export const mockRecipes = [
   {
@@ -40,6 +86,3 @@ export const mockRecipes = [
     category: "vegetarian"
   }
 ];
-
-// Export null for supabase since authentication is removed
-export const supabase = null;

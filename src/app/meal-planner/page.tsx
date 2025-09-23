@@ -5,11 +5,11 @@ import { WeeklyCalendar } from '@/components/meal-planner/WeeklyCalendar';
 import { RecipeSidebar } from '@/components/meal-planner/RecipeSidebar';
 import { MealPlannerHeader } from '@/components/meal-planner/MealPlannerHeader';
 import { NutritionSummary } from '@/components/meal-planner/NutritionSummary';
-import { MealPlan, PlannedMeal } from '@/types/meal-planner';
+import { MealPlan, PlannedMeal, Recipe } from '@/types/meal-planner';
 
 export default function MealPlannerPage() {
   const [mealPlan, setMealPlan] = useState<MealPlan>({});
-  const [selectedRecipe, setSelectedRecipe] = useState<string | null>(null);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
   // Load meal plan from localStorage on component mount
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function MealPlannerPage() {
     localStorage.setItem('cookmate-meal-plan', JSON.stringify(mealPlan));
   }, [mealPlan]);
 
-  const addMealToPlan = (day: string, mealType: string, recipe: any) => {
+  const addMealToPlan = (day: string, mealType: string, recipe: Recipe) => {
     setMealPlan(prev => ({
       ...prev,
       [day]: {
